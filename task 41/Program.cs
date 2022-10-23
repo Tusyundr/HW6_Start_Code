@@ -5,21 +5,14 @@
 
 int[] arrayint = { };
 Console.WriteLine("Введите числа разделённые любым знаком");
-    int[] array = Array.ConvertAll(
+int[] arr = Array.ConvertAll(
         FilterStringOutDig(Console.ReadLine()).Split(" "),
         int.Parse);
-
-    int count = 0;
-
-    for (int i = 0; i < array.Length; i++)
-    {
-        if (array[i] > 0) count++;
-    }
-    Console.WriteLine("Введено чисел больше 0: " + count);
+int result = PositiveNum(arr); 
+Console.WriteLine($"Введено чисел больше 0: {result} ");  
 
 
-
-    // Метод, который убирает из строки все символы, кроме чисел и заменяет их пробелом.
+// Метод, который убирает из строки все символы, кроме чисел и заменяет их пробелом.
 string FilterStringOutDig(string inputstring)
 {
     int parsenum;
@@ -50,3 +43,15 @@ string FilterStringOutDig(string inputstring)
     if (checkchar) inputstring = inputstring.Remove(inputstring.Length - 1, 1); 
     return inputstring;
 }
+
+// Метод, который находит количество чисел больше 0
+int PositiveNum (int[] array) 
+   {
+    int count = 0;
+
+   for (int i = 0; i < array.Length; i++)
+   {
+        if (array[i] > 0) count++;
+    }
+return count;
+   }
