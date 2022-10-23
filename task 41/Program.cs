@@ -1,2 +1,53 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿// Пользователь вводит с клавиатуры M чисел. 
+// Посчитайте, сколько чисел больше 0 ввёл пользователь.
+// 0, 7, 8, -2, -2 -> 2
+// -1, -7, 567, 89, 223-> 3
+
+int[] arrayint = { };
+Console.WriteLine("ВВедите любые числа разделённые любым знаком");
+    int[] array = Array.ConvertAll(
+        FilterStringOutDig(Console.ReadLine()).Split(" "),
+        int.Parse);
+
+    int count = 0;
+
+    for (int i = 0; i < array.Length; i++)
+    {
+        if (array[i] > 0) count++;
+    }
+    Console.WriteLine("Введено чисел больше 0: " + count);
+
+
+
+    // Метод, который убирает из строки все символы кроме чисел и заменяет их пробелом.
+string FilterStringOutDig(string inputstring)
+{
+    int parsenum;
+    bool checkchar = true;
+
+    for (int i = 0; i < inputstring.Length; i++) // На выходе нужно получить строку, где всё, что отлично от цифры заменено пробелами
+    {
+        if (int.TryParse(Convert.ToString(inputstring[i]), out parsenum)
+        || inputstring[i] == '-' && int.TryParse(Convert.ToString(inputstring[i + 1]), out parsenum))
+        
+        {
+            checkchar = false;
+        }
+        else //Заменяем символы пробелом. 
+            
+            if (checkchar) // удаляем двойные символы
+            {
+                inputstring = inputstring.Remove(i, 1);
+                checkchar = true;
+                i--;
+            }
+            else
+            {
+                inputstring = inputstring.Remove(i, 1);
+                inputstring = inputstring.Insert(i, " ");
+                checkchar = true;
+            }
+        }
+    if (checkchar) inputstring = inputstring.Remove(inputstring.Length - 1, 1); 
+    return inputstring;
+}
